@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bra Size Calculator</title>
+<meta name="description" content="Free online bra size calculator. Measure your underbust and overbust to find your exact bra size in US, UK, EU, and AU/NZ standards. Includes measurement guide and cup size chart.">
+<meta name="keywords" content="bra size calculator, bra size chart, US bra size, UK bra size, EU bra size, AU bra size, bra measurement guide, cup size chart, find bra size, measure bra size, online bra calculator">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f9f7fb;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #4a3f62;
+    }
+    h1 {
+        color: #6b5b95;
+        margin-bottom: 15px;
+    }
+    .calculator {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(107,91,149,0.1);
+        max-width: 420px;
+        width: 100%;
+        margin-bottom: 25px;
+        border: 1px solid #e2d9f3;
+    }
+    label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+        color: #5e4b8b;
+    }
+    input, select, button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #d3c6e0;
+        border-radius: 6px;
+        font-size: 1em;
+        background-color: #fdfcff;
+    }
+    button {
+        background-color: #b39ddb;
+        color: white;
+        cursor: pointer;
+        margin-top: 20px;
+        font-weight: bold;
+        border: none;
+    }
+    button:hover {
+        background-color: #9e86c8;
+    }
+    .result {
+        margin-top: 20px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #4a3f62;
+    }
+    .measurement-guide {
+        text-align: center;
+        margin-top: 20px;
+        max-width: 500px;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(107,91,149,0.1);
+        border: 1px solid #e2d9f3;
+    }
+    .measurement-guide img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+    .measurement-text {
+        text-align: left;
+        font-size: 0.95em;
+        line-height: 1.5em;
+        color: #4a3f62;
+    }
+/* 在现有样式基础上新增统一风格 */
+    .seo-content, .size-tables {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(107,91,149,0.1);
+        border: 1px solid #e2d9f3;
+        margin-top: 25px;
+        max-width: 900px;
+    }
+    .seo-content h2, .size-tables h2 {
+        color: #6b5b95;
+        margin-top: 20px;
+    }
+    .seo-content p {
+        color: #4a3f62;
+        font-size: 0.95em;
+        line-height: 1.5em;
+        margin-top: 8px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 0.9em;
+    }
+    table th, table td {
+        border: 1px solid #d3c6e0;
+        padding: 8px;
+        text-align: center;
+    }
+    table th {
+        background-color: #f3eefb;
+        color: #4a3f62;
+    }
+    table tr:nth-child(even) {
+        background-color: #faf7ff;
+    }
+</style>
+</head>
+<body>
+
+<h1>Bra Size Calculator</h1>
+
+<div class="calculator">
+    <label for="unit">Measurement Unit:</label>
+    <select id="unit">
+        <option value="inches">Inches (US/UK)</option>
+        <option value="cm">Centimeters (EU/AU/NZ)</option>
+    </select>
+
+    <label for="underbust">Underbust Measurement:</label>
+    <input type="number" id="underbust" step="0.1" placeholder="Enter underbust">
+
+    <label for="overbust">Overbust Measurement:</label>
+    <input type="number" id="overbust" step="0.1" placeholder="Enter overbust">
+
+    <button onclick="calculateSize()">Calculate Bra Size</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<div class="measurement-guide">
+    <img src="bra_measurements.png" alt="Bra Measurement Guide">
+    <div class="measurement-text">
+        <strong>Underbust:</strong> Wrap the measuring tape snugly around your ribcage, directly under your bust, keeping it level. This is your band size.<br><br>
+        <strong>Overbust:</strong> Measure around the fullest part of your bust (usually over the nipples), keeping the tape parallel to the floor and not too tight.
+    </div>
+</div>
+
+<script>
+const cupSizesInches = [
+    { diff: 0, us: "AA", uk: "AA" },
+    { diff: 1, us: "A",  uk: "A" },
+    { diff: 2, us: "B",  uk: "B" },
+    { diff: 3, us: "C",  uk: "C" },
+    { diff: 4, us: "D",  uk: "D" },
+    { diff: 5, us: "E or DD", uk: "DD" },
+    { diff: 6, us: "F or DDD", uk: "E" },
+    { diff: 7, us: "G or DDDD", uk: "F" },
+    { diff: 8, us: "H",  uk: "FF" },
+    { diff: 9, us: "I",  uk: "G" },
+    { diff: 10, us: "J", uk: "GG" },
+    { diff: 11, us: "K", uk: "H" },
+    { diff: 12, us: "L", uk: "HH" },
+    { diff: 13, us: "M", uk: "J" },
+    { diff: 14, us: "N", uk: "JJ" }
+];
+
+const cmChart = {
+    60:  { au: 6,  cups: [ [71,73,"A"], [73,76,"B"], [76,78,"C"], [78,81,"D"], [81,83,"DD"], [83,86,"E"], [86,88,"F"], [88,91,"G"], [91,94,"H"], [94,97,"I"], [97,100,"J"] ] },
+    65:  { au: 8,  cups: [ [76,78,"A"], [78,81,"B"], [81,83,"C"], [83,86,"D"], [86,88,"DD"], [88,91,"E"], [91,93,"F"], [93,96,"G"], [96,99,"H"], [99,102,"I"], [102,105,"J"] ] },
+    70:  { au: 10, cups: [ [81,83,"A"], [83,86,"B"], [86,88,"C"], [88,91,"D"], [91,93,"DD"], [93,96,"E"], [96,99,"F"], [99,101,"G"], [101,104,"H"], [104,107,"I"], [107,110,"J"] ] },
+    75:  { au: 12, cups: [ [86,88,"A"], [88,91,"B"], [91,93,"C"], [93,96,"D"], [96,99,"DD"], [99,101,"E"], [101,104,"F"], [104,106,"G"], [106,109,"H"], [109,112,"I"], [112,115,"J"] ] },
+    80:  { au: 14, cups: [ [91,93,"A"], [93,96,"B"], [96,99,"C"], [99,101,"D"], [101,104,"DD"], [104,106,"E"], [106,109,"F"], [109,111,"G"], [111,114,"H"], [114,117,"I"], [117,120,"J"] ] },
+    85:  { au: 16, cups: [ [96,99,"A"], [99,101,"B"], [101,104,"C"], [104,106,"D"], [106,109,"DD"], [109,111,"E"], [111,114,"F"], [114,116,"G"], [116,119,"H"], [119,122,"I"], [122,125,"J"] ] },
+    90:  { au: 18, cups: [ [101,104,"A"], [104,106,"B"], [106,109,"C"], [109,111,"D"], [111,114,"DD"], [114,116,"E"], [116,119,"F"], [119,121,"G"], [121,124,"H"], [124,127,"I"], [127,130,"J"] ] },
+    95:  { au: 20, cups: [ [106,109,"A"], [109,111,"B"], [111,114,"C"], [114,116,"D"], [116,119,"DD"], [119,121,"E"], [121,124,"F"], [124,127,"G"], [127,130,"H"], [130,133,"I"], [133,136,"J"] ] },
+    100: { au: 22, cups: [ [111,114,"A"], [114,116,"B"], [116,119,"C"], [119,121,"D"], [121,124,"DD"], [124,127,"E"], [127,129,"F"], [129,132,"G"], [132,135,"H"], [135,138,"I"], [138,141,"J"] ] },
+    105: { au: 24, cups: [ [116,119,"A"], [119,121,"B"], [121,124,"C"], [124,127,"D"], [127,129,"DD"], [129,132,"E"], [132,134,"F"], [134,137,"G"], [137,140,"H"], [140,143,"I"], [143,146,"J"] ] },
+    110: { au: 26, cups: [ [121,124,"A"], [124,127,"B"], [127,129,"C"], [129,132,"D"], [132,134,"DD"], [134,137,"E"], [137,139,"F"], [139,142,"G"], [142,145,"H"], [145,148,"I"], [148,151,"J"] ] }
+};
+
+function calculateSize() {
+    const unit = document.getElementById("unit").value;
+    const underbust = parseFloat(document.getElementById("underbust").value);
+    const overbust = parseFloat(document.getElementById("overbust").value);
+    const resultDiv = document.getElementById("result");
+
+    if (isNaN(underbust) || isNaN(overbust) || overbust <= underbust) {
+        resultDiv.textContent = "Please enter valid measurements.";
+        return;
+    }
+
+    if (unit === "inches") {
+        let band = Math.round(underbust);
+        if (band % 2 !== 0) band += 1;
+        let diff = Math.round(overbust - underbust);
+        let cupUS = "Unknown", cupUK = "Unknown";
+        for (let c of cupSizesInches) {
+            if (diff === c.diff) {
+                cupUS = c.us;
+                cupUK = c.uk;
+                break;
+            }
+        }
+        resultDiv.innerHTML = `US Size: ${band}${cupUS}<br>UK Size: ${band}${cupUK}`;
+    } 
+    else {
+        let bandSizes = Object.keys(cmChart).map(Number);
+        let closestBand = bandSizes.reduce((prev, curr) => 
+            Math.abs(curr - underbust) < Math.abs(prev - underbust) ? curr : prev
+        );
+        let cup = "Unknown";
+        for (let [min, max, label] of cmChart[closestBand].cups) {
+            if (overbust >= min && overbust <= max) {
+                cup = label;
+                break;
+            }
+        }
+        resultDiv.innerHTML = `EU Size: ${closestBand}${cup}<br>AU/NZ Size: ${cmChart[closestBand].au}${cup}`;
+    }
+}
+</script>
+
+<!-- SEO 内容模块 -->
+<section class="seo-content" style="max-width:800px; margin-top:30px;">
+    <h2>Bra Size Calculator USA</h2>
+    <p>Use our bra size calculator to find your perfect fit in US sizing. Simply measure your underbust and overbust, and we’ll convert your measurements into accurate US band and cup sizes. Perfect for brands like Victoria’s Secret, Aerie, and Playtex.</p>
+
+    <h2>Bra Size Calculator UK</h2>
+    <p>Our calculator also supports UK bra size measurements, which use slightly different cup size naming compared to the US. Find your UK bra size for popular brands like Marks & Spencer and Bravissimo with just two quick measurements.</p>
+
+    <h2>Bra Size Calculator EU</h2>
+    <p>European bra sizes use centimeters for band measurements. Enter your underbust and overbust in cm to get accurate EU sizing results, suitable for brands like Triumph and Chantelle.</p>
+
+    <h2>Bra Size Calculator AU/NZ</h2>
+    <p>For Australia and New Zealand, our calculator matches EU band sizes to local AU/NZ equivalents, giving you the correct fit for brands such as Berlei, Bendon, and Pleasure State.</p>
+
+    <h2>Bra Size Calculator Plus Size</h2>
+    <p>Our bra size calculator works for all sizes, including plus size. Whether you’re looking for extended band sizes or larger cup volumes, our calculator ensures comfort and support for every body type.</p>
+
+    <h2>Accurate Bra Size Calculator</h2>
+    <p>Accuracy matters when it comes to bra sizing. By following our measurement guide and using precise algorithms, we ensure you get the most accurate bra size recommendations for your preferred sizing system.</p>
+
+    <h2>Bra Size Calculator Chart</h2>
+    <p>We provide a comprehensive bra size chart for US, UK, EU, and AU/NZ conversions, making it easy to compare your size across regions and brands. Perfect for online shopping and international purchases.</p>
+</section>
+
+<!-- 尺码表模块 -->
+<section class="size-tables">
+    <h2>US / UK Bra Size Chart (Inches)</h2>
+    <table>
+        <tr>
+            <th>Bust/Band Difference (inches)</th>
+            <th>US Cup Size</th>
+            <th>UK Cup Size</th>
+        </tr>
+        <tr><td>&lt;1</td><td>AA</td><td>AA</td></tr>
+        <tr><td>1</td><td>A</td><td>A</td></tr>
+        <tr><td>2</td><td>B</td><td>B</td></tr>
+        <tr><td>3</td><td>C</td><td>C</td></tr>
+        <tr><td>4</td><td>D</td><td>D</td></tr>
+        <tr><td>5</td><td>E or DD</td><td>DD</td></tr>
+        <tr><td>6</td><td>F or DDD</td><td>E</td></tr>
+        <tr><td>7</td><td>G or DDDD</td><td>F</td></tr>
+        <tr><td>8</td><td>H</td><td>FF</td></tr>
+        <tr><td>9</td><td>I</td><td>G</td></tr>
+        <tr><td>10</td><td>J</td><td>GG</td></tr>
+        <tr><td>11</td><td>K</td><td>H</td></tr>
+        <tr><td>12</td><td>L</td><td>HH</td></tr>
+        <tr><td>13</td><td>M</td><td>J</td></tr>
+        <tr><td>14</td><td>N</td><td>JJ</td></tr>
+    </table>
+
+    <h2>EU Bra Size Chart (cm)</h2>
+    <p>EU sizes use centimeters for underbust and overbust measurements.</p>
+    <table>
+        <tr>
+            <th>EU Band Size</th>
+            <th>Cup A</th><th>Cup B</th><th>Cup C</th><th>Cup D</th>
+            <th>Cup DD</th><th>Cup E</th><th>Cup F</th><th>Cup G</th>
+            <th>Cup H</th><th>Cup I</th><th>Cup J</th>
+        </tr>
+        <tr><td>60</td><td>71-73</td><td>73-76</td><td>76-78</td><td>78-81</td><td>81-83</td><td>83-86</td><td>86-88</td><td>88-91</td><td>91-94</td><td>94-97</td><td>97-100</td></tr>
+        <tr><td>65</td><td>76-78</td><td>78-81</td><td>81-83</td><td>83-86</td><td>86-88</td><td>88-91</td><td>91-93</td><td>93-96</td><td>96-99</td><td>99-102</td><td>102-105</td></tr>
+        <tr><td>70</td><td>81-83</td><td>83-86</td><td>86-88</td><td>88-91</td><td>91-93</td><td>93-96</td><td>96-99</td><td>99-101</td><td>101-104</td><td>104-107</td><td>107-110</td></tr>
+        <tr><td>75</td><td>86-88</td><td>88-91</td><td>91-93</td><td>93-96</td><td>96-99</td><td>99-101</td><td>101-104</td><td>104-106</td><td>106-109</td><td>109-112</td><td>112-115</td></tr>
+        <tr><td>80</td><td>91-93</td><td>93-96</td><td>96-99</td><td>99-101</td><td>101-104</td><td>104-106</td><td>106-109</td><td>109-111</td><td>111-114</td><td>114-117</td><td>117-120</td></tr>
+        <tr><td>85</td><td>96-99</td><td>99-101</td><td>101-104</td><td>104-106</td><td>106-109</td><td>109-111</td><td>111-114</td><td>114-116</td><td>116-119</td><td>119-122</td><td>122-125</td></tr>
+        <tr><td>90</td><td>101-104</td><td>104-106</td><td>106-109</td><td>109-111</td><td>111-114</td><td>114-116</td><td>116-119</td><td>119-121</td><td>121-124</td><td>124-127</td><td>127-130</td></tr>
+        <tr><td>95</td><td>106-109</td><td>109-111</td><td>111-114</td><td>114-116</td><td>116-119</td><td>119-121</td><td>121-124</td><td>124-127</td><td>127-130</td><td>130-133</td><td>133-136</td></tr>
+        <tr><td>100</td><td>111-114</td><td>114-116</td><td>116-119</td><td>119-121</td><td>121-124</td><td>124-127</td><td>127-129</td><td>129-132</td><td>132-135</td><td>135-138</td><td>138-141</td></tr>
+        <tr><td>105</td><td>116-119</td><td>119-121</td><td>121-124</td><td>124-127</td><td>127-129</td><td>129-132</td><td>132-134</td><td>134-137</td><td>137-140</td><td>140-143</td><td>143-146</td></tr>
+        <tr><td>110</td><td>121-124</td><td>124-127</td><td>127-129</td><td>129-132</td><td>132-134</td><td>134-137</td><td>137-139</td><td>139-142</td><td>142-145</td><td>145-148</td><td>148-151</td></tr>
+    </table>
+
+    <h2>AU/NZ Bra Size Chart (cm)</h2>
+    <p>AU/NZ sizes correspond closely to EU sizes but have different band labels.</p>
+    <table>
+        <tr>
+            <th>AU/NZ Band Size</th>
+            <th>Cup A</th><th>Cup B</th><th>Cup C</th><th>Cup D</th>
+            <th>Cup DD</th><th>Cup E</th><th>Cup F</th><th>Cup G</th><th>Cup H</th>
+        </tr>
+        <tr><td>8</td><td>77-79</td><td>79-81</td><td>81-83</td><td>83-85</td><td>85-87</td><td>87-89</td><td>89-91</td><td>91-93</td><td>93-95</td></tr>
+        <tr><td>10</td><td>82-84</td><td>84-86</td><td>86-88</td><td>88-90</td><td>90-92</td><td>92-94</td><td>94-96</td><td>96-98</td><td>98-100</td></tr>
+        <tr><td>12</td><td>87-89</td><td>89-91</td><td>91-93</td><td>93-95</td><td>95-97</td><td>97-99</td><td>99-101</td><td>101-103</td><td>103-105</td></tr>
+        <tr><td>14</td><td>92-94</td><td>94-96</td><td>96-98</td><td>98-100</td><td>100-102</td><td>102-104</td><td>104-106</td><td>106-108</td><td>108-110</td></tr>
+        <tr><td>16</td><td>97-99</td><td>99-101</td><td>101-103</td><td>103-105</td><td>105-107</td><td>107-109</td><td>109-111</td><td>111-113</td><td>113-115</td></tr>
+        <tr><td>18</td><td>102-104</td><td>104-106</td><td>106-108</td><td>108-110</td><td>110-112</td><td>112-114</td><td>114-116</td><td>116-118</td><td>118-120</td></tr>
+        <tr><td>20</td><td>107-109</td><td>109-111</td><td>111-113</td><td>113-115</td><td>115-117</td><td>117-119</td><td>119-121</td><td>121-123</td><td>123-125</td></tr>
+        <tr><td>22</td><td>112-114</td><td>114-116</td><td>116-118</td><td>118-120</td><td>120-122</td><td>122-124</td><td>124-126</td><td>126-128</td><td>128-130</td></tr>
+        <tr><td>24</td><td>117-119</td><td>119-121</td><td>121-123</td><td>123-125</td><td>125-127</td><td>127-129</td><td>129-131</td><td>131-133</td><td>133-135</td></tr>
+        <tr><td>26</td><td>122-124</td><td>124-126</td><td>126-128</td><td>128-130</td><td>130-132</td><td>132-134</td><td>134-136</td><td>136-138</td><td>138-140</td></tr>
+    </table>
+</section>
+
+</body>
+</html>
