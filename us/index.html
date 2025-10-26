@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bra Size Calculator US - Convert to EU & UK</title>
+  <meta name="description" content="Bra Size Calculator US lets you convert American bra sizes into EU and UK sizing. Enter your US band and cup size to get accurate international equivalents.">
+  <meta name="keywords" content="bra size calculator us, bra size calculator us to europe, bra size calculator us to uk, us bra size chart, bra cup size converter">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f9f7fb;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #4a3f62;
+    }
+    h1 {
+        color: #6b5b95;
+        margin-bottom: 15px;
+    }
+    p {
+        max-width: 600px;
+        text-align: center;
+        margin-bottom: 20px;
+        line-height: 1.6em;
+    }
+    .converter {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(107,91,149,0.1);
+        max-width: 420px;
+        width: 100%;
+        margin-bottom: 25px;
+        border: 1px solid #e2d9f3;   /* ✅ 添加浅紫色边框线 */
+    }
+    h2 {
+        color: #6b5b95;
+        margin-top: 0;
+    }
+    label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+        color: #5e4b8b;
+    }
+    select, button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #d3c6e0;
+        border-radius: 6px;
+        font-size: 1em;
+        background-color: #fdfcff;
+    }
+    button {
+        background-color: #b39ddb;
+        color: white;
+        cursor: pointer;
+        margin-top: 20px;
+        font-weight: bold;
+        border: none;
+    }
+    button:hover {
+        background-color: #9e86c8;
+    }
+    .result {
+        margin-top: 15px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #4a3f62;
+    }
+    .back-link {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+        color: #6b5b95;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bra Size Calculator US</h1>
+
+  <p>
+    This page helps you convert your US bra size into both EU and UK sizing systems. 
+    Simply select your US band and cup size below, and our calculator will give you the equivalent bra size.
+  </p>
+
+  <div class="converter">
+    <h2>Bra Size Calculator US to Europe</h2>
+    <label for="usBandEU">US Band Size:</label>
+    <select id="usBandEU">
+      <option>28</option>
+      <option>30</option>
+      <option>32</option>
+      <option>34</option>
+      <option>36</option>
+      <option>38</option>
+      <option>40</option>
+      <option>42</option>
+    </select>
+    <label for="usCupEU">US Cup Size:</label>
+    <select id="usCupEU">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+      <option>DD</option>
+      <option>DDD</option>
+      <option>G</option>
+      <option>H</option>
+      <option>I</option>
+      <option>J</option>
+      <option>K</option>
+      <option>L</option>
+    </select>
+    <button onclick="convertToEU()">Convert to EU</button>
+    <div id="resultEU" class="result"></div>
+  </div>
+
+  <div class="converter">
+    <h2>Bra Size Calculator US to UK</h2>
+    <label for="usBandUK">US Band Size:</label>
+    <select id="usBandUK">
+      <option>28</option>
+      <option>30</option>
+      <option>32</option>
+      <option>34</option>
+      <option>36</option>
+      <option>38</option>
+      <option>40</option>
+      <option>42</option>
+    </select>
+    <label for="usCupUK">US Cup Size:</label>
+    <select id="usCupUK">
+      <option>AA</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+      <option>DD</option>
+      <option>DDD</option>
+      <option>G</option>
+      <option>H</option>
+      <option>I</option>
+      <option>J</option>
+      <option>K</option>
+      <option>L</option>
+      <option>M</option>
+      <option>N</option>
+    </select>
+    <button onclick="convertToUK()">Convert to UK</button>
+    <div id="resultUK" class="result"></div>
+  </div>
+
+  <a href="../index.html" class="back-link">← Back to Main Bra Size Calculator</a>
+
+  <script>
+    function convertToEU() {
+      const bandMap = {28: "60", 30: "65", 32: "70", 34: "75", 36: "80", 38: "85", 40: "90", 42: "95"};
+      const cupMap = {
+        "A": "A", "B": "B", "C": "C", "D": "D",
+        "DD": "E", "DDD": "F", "G": "G", "H": "H",
+        "I": "J", "J": "K", "K": "L", "L": "M"
+      };
+
+      const usBand = document.getElementById("usBandEU").value;
+      const usCup = document.getElementById("usCupEU").value;
+      const euBand = bandMap[usBand];
+      const euCup = cupMap[usCup];
+
+      document.getElementById("resultEU").innerText = 
+        `Your EU size is: ${euBand}${euCup}`;
+    }
+
+    function convertToUK() {
+      const cupMap = {
+        "AA":"AA", "A":"A", "B":"B", "C":"C", "D":"D",
+        "DD":"DD", "DDD":"E", "G":"F", "H":"FF",
+        "I":"G", "J":"GG", "K":"H", "L":"HH",
+        "M":"J", "N":"JJ"
+      };
+
+      const usBand = document.getElementById("usBandUK").value;
+      const usCup = document.getElementById("usCupUK").value;
+      const ukCup = cupMap[usCup];
+
+      document.getElementById("resultUK").innerText = 
+        `Your UK size is: ${usBand}${ukCup}`;
+    }
+  </script>
+</body>
+</html>
