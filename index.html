@@ -7,6 +7,9 @@
 <meta name="description" content="Free online bra size calculator. Measure your underbust and overbust to find your exact bra size in US, UK, EU, and AU/NZ standards. Includes measurement guide and cup size chart.">
 <meta name="keywords" content="bra size calculator, bra size chart, US bra size, UK bra size, EU bra size, AU bra size, bra measurement guide, cup size chart, find bra size, measure bra size, online bra calculator">
 <style>
+    html {
+        scroll-behavior: smooth;
+    }
     body {
         font-family: Arial, sans-serif;
         background: #f9f7fb;
@@ -21,6 +24,20 @@
         color: #6b5b95;
         margin-bottom: 15px;
     }
+
+    /* ===== 新增主内容布局 ===== */
+    .main-section {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 30px;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 1000px;
+        margin-top: 10px;
+    }
+
+    /* 计算器样式 */
     .calculator {
         background: #ffffff;
         padding: 20px;
@@ -28,9 +45,9 @@
         box-shadow: 0 4px 12px rgba(107,91,149,0.1);
         max-width: 420px;
         width: 100%;
-        margin-bottom: 25px;
         border: 1px solid #e2d9f3;
     }
+
     label {
         display: block;
         margin-top: 15px;
@@ -63,9 +80,10 @@
         font-weight: bold;
         color: #4a3f62;
     }
+
+    /* 测量指南 */
     .measurement-guide {
         text-align: center;
-        margin-top: 20px;
         max-width: 500px;
         background: #ffffff;
         padding: 20px;
@@ -84,7 +102,30 @@
         line-height: 1.5em;
         color: #4a3f62;
     }
-/* 在现有样式基础上新增统一风格 */
+
+    /* 信息说明框 */
+    .info-box {
+        background-color: #f3eefb;
+        border: 1px solid #e2d9f3;
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 900px;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .info-box h2 {
+        text-align: center;
+        color: #6b5b95;
+        margin-bottom: 15px;
+    }
+    .info-box p {
+        color: #4a3f62;
+        font-size: 1em;
+        line-height: 1.6em;
+        text-align: left;
+    }
+
+    /* SEO 模块和表格样式 */
     .seo-content, .size-tables {
         background: #ffffff;
         padding: 20px;
@@ -122,39 +163,89 @@
     table tr:nth-child(even) {
         background-color: #faf7ff;
     }
+
+    /* 响应式布局 */
+    @media (max-width: 768px) {
+        .main-section {
+            flex-direction: column;
+            align-items: center;
+        }
+        .calculator, .measurement-guide {
+            max-width: 100%;
+        }
+    }
 </style>
 </head>
 <body>
 
 <h1>Bra Size Calculator</h1>
 
-<div class="calculator">
-    <label for="unit">Measurement Unit:</label>
-    <select id="unit">
-        <option value="inches">Inches (US/UK)</option>
-        <option value="cm">Centimeters (EU/AU/NZ)</option>
-    </select>
+<!-- Navigation Links -->
+<nav class="internal-links" style="margin-bottom:25px; text-align:center;">
+  <a href="us/index.html" style="color:#6b5b95; font-weight:bold; text-decoration:none; margin-right:15px;">
+    Bra Size Calculator US
+  </a>
+  <a href="uk/index.html" style="color:#6b5b95; font-weight:bold; text-decoration:none; margin-right:15px;">
+    Bra Size Calculator UK
+  </a>
+  <a href="#usuk-chart" style="color:#6b5b95; font-weight:bold; text-decoration:none; margin-right:15px;">
+    US / UK Bra Size Chart
+  </a>
+  <a href="#eu-chart" style="color:#6b5b95; font-weight:bold; text-decoration:none; margin-right:15px;">
+    EU Bra Size Chart
+  </a>
+  <a href="#au-chart" style="color:#6b5b95; font-weight:bold; text-decoration:none;">
+    AU/NZ Bra Size Chart
+  </a>
+</nav>
 
-    <label for="underbust">Underbust Measurement:</label>
-    <input type="number" id="underbust" step="0.1" placeholder="Enter underbust">
-
-    <label for="overbust">Overbust Measurement:</label>
-    <input type="number" id="overbust" step="0.1" placeholder="Enter overbust">
-
-    <button onclick="calculateSize()">Calculate Bra Size</button>
-
-    <div class="result" id="result"></div>
+<!-- 计算器说明 -->
+<div class="info-box">
+    <h2>Bra Size Calculator in Inches & cm</h2>
+    <p>
+        Our bra size calculator allows you to easily switch between <strong>inches</strong> (used for US and UK sizes)
+        and <strong>centimeters</strong> (used for EU, AU, and NZ sizes).  
+        Select your preferred measurement unit, enter your underbust and overbust measurements,
+        and the calculator will instantly display accurate results for both band and cup size.  
+        Whether you’re shopping locally or online, you can measure in inches or centimeters — all in one place.
+    </p>
 </div>
 
-<div class="measurement-guide">
-    <img src="bra_measurements.png" alt="Bra Measurement Guide">
-    <div class="measurement-text">
-        <strong>Underbust:</strong> Wrap the measuring tape snugly around your ribcage, directly under your bust, keeping it level. This is your band size.<br><br>
-        <strong>Overbust:</strong> Measure around the fullest part of your bust (usually over the nipples), keeping the tape parallel to the floor and not too tight.
+<!-- 主内容：左右布局 -->
+<div class="main-section">
+
+    <!-- 左侧：计算器 -->
+    <div class="calculator">
+        <label for="unit">Measurement Unit:</label>
+        <select id="unit">
+            <option value="inches">Inches (US/UK)</option>
+            <option value="cm">Centimeters (EU/AU/NZ)</option>
+        </select>
+
+        <label for="underbust">Underbust Measurement:</label>
+        <input type="number" id="underbust" step="0.1" placeholder="Enter underbust">
+
+        <label for="overbust">Overbust Measurement:</label>
+        <input type="number" id="overbust" step="0.1" placeholder="Enter overbust">
+
+        <button onclick="calculateSize()">Calculate Bra Size</button>
+
+        <div class="result" id="result"></div>
     </div>
+
+    <!-- 右侧：测量说明 -->
+    <div class="measurement-guide">
+        <img src="bra_measurements.png" alt="Bra Measurement Guide">
+        <div class="measurement-text">
+            <strong>Underbust:</strong> Wrap the measuring tape snugly around your ribcage, directly under your bust, keeping it level. This is your band size.<br><br>
+            <strong>Overbust:</strong> Measure around the fullest part of your bust (usually over the nipples), keeping the tape parallel to the floor and not too tight.
+        </div>
+    </div>
+
 </div>
 
 <script>
+/* 保留你的计算器逻辑 */
 const cupSizesInches = [
     { diff: 0, us: "AA", uk: "AA" },
     { diff: 1, us: "A",  uk: "A" },
@@ -211,12 +302,9 @@ function calculateSize() {
             }
         }
         resultDiv.innerHTML = `US Size: ${band}${cupUS}<br>UK Size: ${band}${cupUK}`;
-    } 
-    else {
+    } else {
         let bandSizes = Object.keys(cmChart).map(Number);
-        let closestBand = bandSizes.reduce((prev, curr) => 
-            Math.abs(curr - underbust) < Math.abs(prev - underbust) ? curr : prev
-        );
+        let closestBand = bandSizes.reduce((prev, curr) => Math.abs(curr - underbust) < Math.abs(prev - underbust) ? curr : prev);
         let cup = "Unknown";
         for (let [min, max, label] of cmChart[closestBand].cups) {
             if (overbust >= min && overbust <= max) {
@@ -229,7 +317,7 @@ function calculateSize() {
 }
 </script>
 
-<!-- SEO 内容模块 -->
+<!-- 其余 SEO 模块与表格保持不变 -->
 <section class="seo-content" style="max-width:800px; margin-top:30px;">
     <h2>Bra Size Calculator USA</h2>
     <p>Use our bra size calculator to find your perfect fit in US sizing. Simply measure your underbust and overbust, and we’ll convert your measurements into accurate US band and cup sizes. Perfect for brands like Victoria’s Secret, Aerie, and Playtex.</p>
@@ -255,7 +343,8 @@ function calculateSize() {
 
 <!-- 尺码表模块 -->
 <section class="size-tables">
-    <h2>US / UK Bra Size Chart (Inches)</h2>
+    <h2 id="usuk-chart">US / UK Bra Size Chart (Inches)</h2>
+
     <table>
         <tr>
             <th>Bust/Band Difference (inches)</th>
@@ -279,7 +368,7 @@ function calculateSize() {
         <tr><td>14</td><td>N</td><td>JJ</td></tr>
     </table>
 
-    <h2>EU Bra Size Chart (cm)</h2>
+    <h2 id="eu-chart">EU Bra Size Chart (cm)</h2>
     <p>EU sizes use centimeters for underbust and overbust measurements.</p>
     <table>
         <tr>
@@ -301,7 +390,7 @@ function calculateSize() {
         <tr><td>110</td><td>121-124</td><td>124-127</td><td>127-129</td><td>129-132</td><td>132-134</td><td>134-137</td><td>137-139</td><td>139-142</td><td>142-145</td><td>145-148</td><td>148-151</td></tr>
     </table>
 
-    <h2>AU/NZ Bra Size Chart (cm)</h2>
+    <h2 id="au-chart">AU/NZ Bra Size Chart (cm)</h2>
     <p>AU/NZ sizes correspond closely to EU sizes but have different band labels.</p>
     <table>
         <tr>
