@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bra Size Calculator UK | Online NHS Inches Chart</title>
+    <meta name="description" content="Use our Bra Size Calculator UK based on NHS measurement guidelines. Measure your underbust and overbust in inches to get your accurate UK bra size online. Includes a full UK bra size chart.">
+    <meta name="keywords" content="bra size calculator uk, bra size calculator uk inches nhs, bra size calculator uk chart, bra size calculator uk online, uk bra size chart, nhs bra size guide">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f7fb;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #4a3f62;
+        }
+        h1 {
+            color: #6b5b95;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .calculator, .chart-section, .measurement-guide {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(107,91,149,0.1);
+            border: 1px solid #e2d9f3;
+            max-width: 500px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #5e4b8b;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #d3c6e0;
+            border-radius: 6px;
+            font-size: 1em;
+            background-color: #fdfcff;
+        }
+        button {
+            background-color: #b39ddb;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            border: none;
+        }
+        button:hover {
+            background-color: #9e86c8;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #4a3f62;
+        }
+        .measurement-guide img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        h2 {
+            color: #6b5b95;
+            margin-top: 30px;
+            text-align: center;
+        }
+        p {
+            font-size: 0.95em;
+            line-height: 1.6em;
+            color: #4a3f62;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        table th, table td {
+            border: 1px solid #d3c6e0;
+            padding: 8px;
+            text-align: center;
+        }
+        table th {
+            background-color: #f3eefb;
+            color: #4a3f62;
+        }
+        table tr:nth-child(even) {
+            background-color: #faf7ff;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .back-link a {
+            color: #6b5b95;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bra Size Calculator UK</h1>
+    <p style="max-width:600px;text-align:center;">
+        This online <strong>Bra Size Calculator UK</strong> follows the official NHS measuring method using inches. 
+        Measure your underbust and overbust to find your perfect UK bra size instantly.
+    </p>
+
+    <!-- NHS-based UK Bra Size Calculator -->
+    <div class="calculator">
+        <h2>Bra Size Calculator UK Inches (NHS Method)</h2>
+        <label for="underbust">Underbust (inches):</label>
+        <input type="number" id="underbust" placeholder="Enter your underbust measurement">
+
+        <label for="overbust">Overbust (inches):</label>
+        <input type="number" id="overbust" placeholder="Enter your overbust measurement">
+
+        <button onclick="calculateUKBraSize()">Calculate UK Bra Size</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <!-- Measurement Guide -->
+    <div class="measurement-guide">
+        <img src="../bra_measurements.png" alt="How to Measure Bra Size - Overbust and Underbust">
+        <p><strong>How to Measure:</strong><br>
+        <strong>Step 1:</strong> Measure underbust snugly for your band size.<br>
+        <strong>Step 2:</strong> Measure around the fullest part of your bust (overbust).<br>
+        <strong>Step 3:</strong> Subtract underbust from overbust to determine your cup size using the chart below.
+        </p>
+    </div>
+
+    <!-- UK Bra Size Chart -->
+    <div class="chart-section">
+        <h2>UK Bra Size Chart</h2>
+        <p>This UK bra size chart shows how your underbust and overbust difference (in inches) corresponds to your cup size.</p>
+        <table>
+            <tr>
+                <th>Difference (inches)</th>
+                <th>UK Cup Size</th>
+            </tr>
+            <tr><td>&lt;1</td><td>AA</td></tr>
+            <tr><td>1</td><td>A</td></tr>
+            <tr><td>2</td><td>B</td></tr>
+            <tr><td>3</td><td>C</td></tr>
+            <tr><td>4</td><td>D</td></tr>
+            <tr><td>5</td><td>DD</td></tr>
+            <tr><td>6</td><td>E</td></tr>
+            <tr><td>7</td><td>F</td></tr>
+            <tr><td>8</td><td>FF</td></tr>
+            <tr><td>9</td><td>G</td></tr>
+            <tr><td>10</td><td>GG</td></tr>
+            <tr><td>11</td><td>H</td></tr>
+            <tr><td>12</td><td>HH</td></tr>
+            <tr><td>13</td><td>J</td></tr>
+            <tr><td>14</td><td>JJ</td></tr>
+        </table>
+    </div>
+
+    <div class="back-link">
+        <a href="../index.html">← Back to Main Bra Size Calculator</a>
+    </div>
+
+    <script>
+        function calculateUKBraSize() {
+            const underbust = parseFloat(document.getElementById('underbust').value);
+            const overbust = parseFloat(document.getElementById('overbust').value);
+            if (isNaN(underbust) || isNaN(overbust)) {
+                document.getElementById('result').innerText = "Please enter valid numbers.";
+                return;
+            }
+
+            const band = Math.round(underbust);
+            const diff = Math.round(overbust - underbust);
+            let cup = "";
+
+            const cupSizes = {
+                0: "AA", 1: "A", 2: "B", 3: "C", 4: "D", 5: "DD", 6: "E", 7: "F", 8: "FF",
+                9: "G", 10: "GG", 11: "H", 12: "HH", 13: "J", 14: "JJ"
+            };
+
+            cup = cupSizes[diff] || "N/A";
+            document.getElementById('result').innerText = `Your UK Bra Size is approximately: ${band}${cup}`;
+        }
+    </script>
+
+</body>
+</html>
