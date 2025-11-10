@@ -1,8 +1,8 @@
 # robots.txt for https://health-brasizecalculator.com
-# 允许所有搜索引擎抓取整个网站内容
+# Allow all crawlers to access the site
 
 User-agent: *
 Allow: /
 
-# 告诉搜索引擎网站地图的位置
+# Sitemap location
 Sitemap: https://health-brasizecalculator.com/sitemap.xml
